@@ -201,6 +201,12 @@
           "required" : true,
           "type" : "string"
         }, {
+          "name" : "agendaitem_id",
+          "in" : "path",
+          "description" : "The unique agendaitem_id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "body",
           "in" : "body",
           "description" : "List of user object",
@@ -236,6 +242,12 @@
           "required" : true,
           "type" : "string"
         }, {
+          "name" : "statement_id",
+          "in" : "path",
+          "description" : "The unique statement_id",
+          "required" : true,
+          "type" : "string"
+        }, {
           "name" : "version",
           "in" : "query",
           "required" : false,
@@ -249,7 +261,7 @@
         }
       },
       "put" : {
-        "operationId" : "updateAgendaItem",
+        "operationId" : "updateStatement",
         "tags" : [ "meeting" ],
         "summary" : "Creates an updated version of an agenda item",
         "produces" : [ "application/json" ],
@@ -265,6 +277,12 @@
           "description" : "The unique agendaitem_id",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "statement_id",
+          "in" : "path",
+          "description" : "The unique statement_id",
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -276,6 +294,15 @@
   },
   "definitions" : {
     "AgendaItem" : {
+      "type" : "object",
+      "properties" : {
+        "dummy" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Statement" : {
       "type" : "object",
       "properties" : {
         "dummy" : {
