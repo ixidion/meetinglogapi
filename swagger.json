@@ -103,12 +103,11 @@
         }
       }
     },
-    "/meeting/{meeting_id}/agendaitem/{agendaitem_id}/statement" : {
+    "/meeting/{meeting_id}/agendaitem" : {
       "post" : {
-        "operationId" : "createStatement",
+        "operationId" : "createAgendaItem",
         "tags" : [ "meeting" ],
-        "summary" : "Creates a new Statement at the end of the Agenda Item List",
-        "description" : "Statements are versioned and appear in the order of their first creation. Statements can be deleted and will get a delete flag.",
+        "summary" : "Creates a new item at the end of the Agenda Item List",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "meeting_id",
@@ -122,7 +121,7 @@
           "description" : "List of user object",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/Statement"
+            "$ref" : "#/definitions/AgendaItem"
           }
         } ],
         "responses" : {
@@ -153,8 +152,9 @@
           "type" : "string"
         }, {
           "name" : "version",
-          "in" : "param",
-          "description" : "The version of the Agendaitem"
+          "in" : "query",
+          "description" : "The version of the Agendaitem",
+          "type" : "integer"
         } ],
         "responses" : {
           "200" : {
@@ -187,11 +187,12 @@
         }
       }
     },
-    "/meeting/{meeting_id}/agendaitem" : {
+    "/meeting/{meeting_id}/agendaitem/{agendaitem_id}/statement" : {
       "post" : {
-        "operationId" : "createAgendaItem",
+        "operationId" : "createStatement",
         "tags" : [ "meeting" ],
-        "summary" : "Creates a new item at the end of the Agenda Item List",
+        "summary" : "Creates a new Statement at the end of the Agenda Item List",
+        "description" : "Statements are versioned and appear in the order of their first creation. Statements can be deleted and will get a delete flag.",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "meeting_id",
@@ -205,8 +206,65 @@
           "description" : "List of user object",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/AgendaItem"
+            "$ref" : "#/definitions/Statement"
           }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}/agendaitem/{agendaitem_id}/statement{statement_id}" : {
+      "get" : {
+        "operationId" : "getStatement",
+        "tags" : [ "meeting" ],
+        "summary" : "Returns a specific agenda item.",
+        "description" : "Per default return the most recent item. Older versions can be retrieved with the version parameter.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "agendaitem_id",
+          "in" : "path",
+          "description" : "The unique agendaitem_id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "description" : "The version of the Agendaitem"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "put" : {
+        "operationId" : "updateAgendaItem",
+        "tags" : [ "meeting" ],
+        "summary" : "Creates an updated version of an agenda item",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "agendaitem_id",
+          "in" : "path",
+          "description" : "The unique agendaitem_id",
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
