@@ -1,0 +1,179 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the MeetinLog API. \n",
+    "version" : "1.0.0",
+    "title" : "MeetingLog API",
+    "termsOfService" : "http://example.com/notermsavailablerightnow/",
+    "contact" : {
+      "email" : "patrick.labonte@t-systems.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "meeting",
+    "description" : "Everything about Meetings",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://example.com/meeting"
+    }
+  }, {
+    "name" : "user",
+    "description" : "Operations about user",
+    "externalDocs" : {
+      "description" : "Find out more about our store",
+      "url" : "http://swagger.io"
+    }
+  } ],
+  "paths" : {
+    "/meeting" : {
+      "post" : {
+        "tags" : [ "meeting" ],
+        "summary" : "Create a Meeting",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}" : {
+      "get" : {
+        "operationId" : "getMeeting",
+        "tags" : [ "meeting" ],
+        "summary" : "Returns a specific meeting",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}/agenda" : {
+      "get" : {
+        "operationId" : "getAgenda",
+        "tags" : [ "meeting" ],
+        "summary" : "Returns a specific Meeting Agenda",
+        "description" : "Maybe redundant",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "put" : {
+        "operationId" : "reorderAgenda",
+        "tags" : [ "meeting" ],
+        "summary" : "Applies a reordering of the Agenda.",
+        "description" : "The Agenda can not be modified. Use the agendaitem ressource.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "The supplied Agenda reordering was invalid, e.g. Items were added or removed."
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}/agendaitem" : {
+      "post" : {
+        "operationId" : "createAgendaItem",
+        "tags" : [ "meeting" ],
+        "summary" : "Creates a new item at the end of the Agenda Item List",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "List of user object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AgendaItem"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}/agendaitem/{agendaitem_id}" : {
+      "put" : {
+        "operationId" : "updateAgendaItem",
+        "tags" : [ "meeting" ],
+        "summary" : "Creates an updated version of an agenda item",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "agendaitem_id",
+          "in" : "path",
+          "description" : "The unique agendaitem_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AgendaItem" : {
+      "type" : "object",
+      "properties" : {
+        "dummy" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    }
+  },
+  "externalDocs" : {
+    "description" : "Find out more about Swagger",
+    "url" : "http://swagger.io"
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "schemes" : [ "https", "http" ],
+  "basePath" : "/bluemx/MeetingLog/1.0.0"
+}
