@@ -21,6 +21,13 @@
       "url" : "http://example.com/meeting"
     }
   }, {
+    "name" : "blockchain",
+    "description" : "All API-Calls which include a blockchain interaction.",
+    "externalDocs" : {
+      "description" : "Find out more",
+      "url" : "http://example.com/meeting"
+    }
+  }, {
     "name" : "user",
     "description" : "Operations about user",
     "externalDocs" : {
@@ -46,6 +53,84 @@
         "tags" : [ "meeting" ],
         "summary" : "Returns a specific meeting",
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "put" : {
+        "operationId" : "updateMeeting",
+        "tags" : [ "meeting" ],
+        "summary" : "Updates a specific meeting",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}/freezestatus" : {
+      "post" : {
+        "operationId" : "freezeMeeting",
+        "tags" : [ "meeting", "blockchain" ],
+        "summary" : "Freezes the Meeting, creates hashes and write them to the underlying distributed ledger.",
+        "description" : "This method should be called asynchronously.",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "409" : {
+            "description" : "Conflict. The Meeting is already frozen."
+          }
+        }
+      },
+      "get" : {
+        "operationId" : "getFreezestatus",
+        "tags" : [ "meeting", "blockchain" ],
+        "summary" : "Gets the Freezestatus of the Meeting and returns the hash of the transaction and the Hash of the document.",
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/meeting/{meeting_id}/freezestatus/doc" : {
+      "get" : {
+        "operationId" : "getDocument",
+        "tags" : [ "meeting", "blockchain" ],
+        "summary" : "Gets the freezed Document.",
         "parameters" : [ {
           "name" : "meeting_id",
           "in" : "path",
@@ -180,6 +265,36 @@
             "description" : "successful operation"
           }
         }
+      },
+      "delete" : {
+        "operationId" : "deleteAgendaitem",
+        "tags" : [ "meeting" ],
+        "summary" : "Permanently deletes an Agendaitem with all statements",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "meeting_id",
+          "in" : "path",
+          "description" : "The unique meeting_id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "agendaitem_id",
+          "in" : "path",
+          "description" : "The unique agendaitem_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "400" : {
+            "description" : "Invalid Meeting ID supplied"
+          },
+          "404" : {
+            "description" : "AgendaItem not found"
+          }
+        }
       }
     },
     "/meeting/{meeting_id}/agendaitem/{agendaitem_id}/statement" : {
@@ -280,7 +395,7 @@
       "delete" : {
         "operationId" : "deleteStatement",
         "tags" : [ "meeting" ],
-        "summary" : "Permanently deletes a statement in the version history as deleted",
+        "summary" : "Permanently deletes a statement",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "meeting_id",
@@ -306,10 +421,10 @@
             "description" : "successful operation"
           },
           "400" : {
-            "description" : "Invalid ID supplied"
+            "description" : "Invalid Meeting ID or Agenda Item ID supplied"
           },
           "404" : {
-            "description" : "Order not found"
+            "description" : "Statement not found"
           }
         }
       }
