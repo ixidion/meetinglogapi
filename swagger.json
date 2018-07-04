@@ -27,13 +27,6 @@
       "description" : "Find out more",
       "url" : "http://example.com/meeting"
     }
-  }, {
-    "name" : "user",
-    "description" : "Operations about user",
-    "externalDocs" : {
-      "description" : "Find out more about our store",
-      "url" : "http://swagger.io"
-    }
   } ],
   "paths" : {
     "/meeting" : {
