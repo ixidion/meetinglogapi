@@ -1,2 +1,1 @@
 # meetinglogapi
-Example API
