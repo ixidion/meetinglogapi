@@ -43,6 +43,13 @@
     "/meeting/{meeting_id}" : {
       "get" : {
         "operationId" : "getMeeting",
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${account}:function:${stageVariables.MyLambda}/invocations",
+          "credentials" : "arn:aws:iam::MY_ACCOUNT_ID:role/lambda_basic_execution",
+          "passthroughBehavior" : "never",
+          "httpMethod" : "POST",
+          "type" : "aws_proxy"
+        },
         "tags" : [ "meeting" ],
         "summary" : "Returns a specific meeting",
         "produces" : [ "application/json" ],
@@ -61,6 +68,13 @@
       },
       "put" : {
         "operationId" : "updateMeeting",
+        "x-amazon-apigateway-integration" : {
+          "uri" : "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${account}:function:${stageVariables.MyLambda}/invocations",
+          "credentials" : "arn:aws:iam::MY_ACCOUNT_ID:role/lambda_basic_execution",
+          "passthroughBehavior" : "never",
+          "httpMethod" : "POST",
+          "type" : "aws_proxy"
+        },
         "tags" : [ "meeting" ],
         "summary" : "Updates a specific meeting",
         "produces" : [ "application/json" ],
@@ -98,10 +112,6 @@
         }
       }
     }
-  },
-  "externalDocs" : {
-    "description" : "Find out more about Swagger",
-    "url" : "http://swagger.io"
   },
   "host" : "virtserver.swaggerhub.com",
   "schemes" : [ "https", "http" ],
