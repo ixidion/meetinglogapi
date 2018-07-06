@@ -93,26 +93,7 @@
       }
     }
   },
-  "definitions" : {
-    "AgendaItem" : {
-      "type" : "object",
-      "properties" : {
-        "dummy" : {
-          "type" : "integer",
-          "format" : "int64"
-        }
-      }
-    },
-    "Statement" : {
-      "type" : "object",
-      "properties" : {
-        "dummy" : {
-          "type" : "integer",
-          "format" : "int64"
-        }
-      }
-    }
-  },
+  "definitions" : null,
   "host" : "virtserver.swaggerhub.com",
   "schemes" : [ "https", "http" ],
   "basePath" : "/bluemx/MeetingLog/1.0.0"
