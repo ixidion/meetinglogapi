@@ -93,7 +93,6 @@
       }
     }
   },
-  "definitions" : null,
   "host" : "virtserver.swaggerhub.com",
   "schemes" : [ "https", "http" ],
   "basePath" : "/bluemx/MeetingLog/1.0.0"
