@@ -25,7 +25,7 @@
         "operationId" : "createMeeting",
         "x-amazon-apigateway-integration" : {
           "uri" : "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${account}:function:${stageVariables.MyLambda}/invocations",
-          "credentials" : "arn:aws:iam::MY_ACCOUNT_ID:role/lambda_basic_execution",
+          "credentials" : "arn:aws:iam::${account}:role/lambda_basic_execution",
           "passthroughBehavior" : "never",
           "httpMethod" : "POST",
           "type" : "aws_proxy"
@@ -33,10 +33,21 @@
         "tags" : [ "meeting" ],
         "summary" : "Create a Meeting",
         "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The Meeting object - meetingId will be ignored.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Meeting"
+          }
+        } ],
         "responses" : {
           "200" : {
-            "description" : "successful operation",
-            "schema" : "#/definitions/Meeting"
+            "description" : "successful operation. Returns created object with assigned meetingId.",
+            "schema" : {
+              "$ref" : "#/definitions/Meeting"
+            }
           }
         }
       }
@@ -46,7 +57,7 @@
         "operationId" : "getMeeting",
         "x-amazon-apigateway-integration" : {
           "uri" : "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${region}:${account}:function:${stageVariables.MyLambda}/invocations",
-          "credentials" : "arn:aws:iam::MY_ACCOUNT_ID:role/lambda_basic_execution",
+          "credentials" : "arn:aws:iam::${account}:role/lambda_basic_execution",
           "passthroughBehavior" : "never",
           "httpMethod" : "POST",
           "type" : "aws_proxy"
